@@ -1,6 +1,10 @@
+ifndef::masterDocGenerationActive[]
+:imagesdir: ../images
+endif::masterDocGenerationActive[]
+
 === Negative Amortization
 
-See: http://www.vertex42.com/ExcelArticles/negative-amortization.html
+Copied from: http://www.vertex42.com/ExcelArticles/negative-amortization.html
 
 ==== Definition of Negative Amortization
 
@@ -15,7 +19,7 @@ The result of negative amortization is that you end up paying interest on your u
 The amortization table below illustrates how missing a payment results in interest added to the Principal (see the numbers highlighted red). In this example, the second monthly payment of a 30 year loan is skipped.
 
 [.text-center]
-image:toolbox/finance/negative-amortization.png[]
+image::finance/negative-amortization.png[]
 
 ==== Negative Amortization Example
 
@@ -25,7 +29,7 @@ Simple Interest Amortization
 When handling missed payments, the alternative to negative amortization is "simple interest amortization", where the unpaid interest is NOT added to the Principal balance, but instead is accrued in a separate account to be paid off first before the Principal. The table below shows how simple interest amortization compares to the negative amortization example when the second payment is missed.
 
 [.text-center]
-image:toolbox/finance/simple-interest-amortization-table.png[]
+image::finance/simple-interest-amortization-table.png[]
 
 
 ==== Simple Interest Amortization with Missed Payment

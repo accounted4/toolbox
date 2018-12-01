@@ -1,8 +1,9 @@
 = ToolBox
 :toc: left
-:toclevels: 4 
-:imagesdir: ./images 
-:source-highlighter: coderay 
+:toclevels: 4
+:source-highlighter: coderay
+:imagesdir: ./images
+:masterDocGenerationActive: true
 
 == Linux
 
@@ -11,7 +12,7 @@
 
 .Keyboard Shortcuts
 |===
-|Key Combination |Description 
+|Key Combination |Description
 
 |`CTRL`+`ALT`+`F1`
 |Open virtual terminal 1
