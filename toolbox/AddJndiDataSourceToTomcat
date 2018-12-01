@@ -1,0 +1,67 @@
+==== Add JNDI Datasource to Tomcat
+
+Rather than configuring the DataSource properties within the application, it may be preferable to have the application request the DataSource from the container. Then administrators can modify configuration without poking into the application.
+
+The following example is from the http://tomcat.apache.org/tomcat-6.0-doc/jndi-datasource-examples-howto.html[Tomcat JNDI Datasource example].
+
+. Copy the JDBC driver into `$CATALINA_HOME/lib`
+
+. Configure the database connection properties as a resource:
++
+.$CATALINA_HOME/conf/server.xml
+[source,xml]
+----
+<GlobalNamingResources>
+
+    <Resource name="jdbc/accounted4" auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://127.0.0.1:5433/postgres"
+              username="tia"
+              password="tia"
+              maxActive="20"
+              maxIdle="10"
+              maxWait="-1"
+              removeAbandoned="true"
+              removeAbandonedTimeout="60"
+              logAbandoned="true"
+              />
+          
+</GlobalNamingResources>
+----
+
+. Expose JNDI resource in the Tomcat Application Context
++
+.$CATALINA_HOME/conf/context.xml
+[source,xml]
+----
+<Context>
+    <ResourceLink
+        global="jdbc/accounted4"
+        name="jdbc/accounted4"
+        type="org.postgresql.Driver"
+    />
+</Context>
+----
++
+. Obtain the JNDI reference from the Spring context
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       
+       xsi:schemaLocation=
+            "http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+            ">
+    
+    <!-- Use JNDI to find the database connection -->
+    <jee:jndi-lookup id="dataSource" 
+        jndi-name="/jdbc/accounted4"
+        resource-ref="true"
+    />
+
+    
+</beans>
+----

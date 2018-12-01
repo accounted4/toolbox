@@ -1,2 +1,9 @@
-= AsciiDoc converted to HTML/PDF files and published on gh-pages with Asciidoctor Docker from Travis CI
+= ToolBox
+:toc: left
+:toclevels: 4 
+:imagesdir: ./images 
 
+
+include::Blog.adoc[]
+include::Toolbox.adoc[]
+include::Projects.adoc[]
