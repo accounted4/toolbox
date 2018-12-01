@@ -1,8 +1,10 @@
-==== Negative Amortization
+:imagesdir: ../images
+
+=== Negative Amortization
 
 See: http://www.vertex42.com/ExcelArticles/negative-amortization.html
 
-===== Definition of Negative Amortization
+==== Definition of Negative Amortization
 
 Negative Amortization is the increase in Principal through the addition of unpaid interest.
 
@@ -10,14 +12,14 @@ Most definitions describe this as occurring when a payment is insufficient to co
 
 The result of negative amortization is that you end up paying interest on your unpaid interest.
 
-===== Example Amortization Table
+==== Example Amortization Table
 
 The amortization table below illustrates how missing a payment results in interest added to the Principal (see the numbers highlighted red). In this example, the second monthly payment of a 30 year loan is skipped.
 
 [.text-center]
-image:toolbox/finance/negative-amortization.gif[]
+image:toolbox/finance/negative-amortization.png[]
 
-===== Negative Amortization Example
+==== Negative Amortization Example
 
 The interest due is calculated as the Monthly Rate * Previous Balance, so on Payment No. 3, you end paying even more interest than you did on your first payment. In the table, I summed the total payment and interest over the first 7 payments and highlighted the balance at the end of the 7th month in blue. In this example, it cost about $3000 to make up for the one missed payment (to bring the balance back to the amount after the first payment). This doesn't take into late fees or penalties.
 Simple Interest Amortization
@@ -25,14 +27,14 @@ Simple Interest Amortization
 When handling missed payments, the alternative to negative amortization is "simple interest amortization", where the unpaid interest is NOT added to the Principal balance, but instead is accrued in a separate account to be paid off first before the Principal. The table below shows how simple interest amortization compares to the negative amortization example when the second payment is missed.
 
 [.text-center]
-image:toolbox/finance/simple-interest-amortization-table.gif[]
+image:toolbox/finance/simple-interest-amortization-table.png[]
 
 
-===== Simple Interest Amortization with Missed Payment
+==== Simple Interest Amortization with Missed Payment
 
 The thing to notice is that when the second payment is missed, the Principal balance stays the same, and therefore the interest due on payment No 3 is still only 499.50. The total amount owed still goes up, because you are going to have to pay off the interest that has accrued, but at least you aren't paying interest on interest.
 
-===== Negative Amortization & Compound Interest
+==== Negative Amortization & Compound Interest
 
 If "simple interest" is defined as paying interest on the principal only, then negative amortization is basically "compound interest" because it results in interest being paid on interest. I bring this up because if you are using my amortization schedule spreadsheet or other loan calculators and mortgage calculators that let you choose a compound period that is different than the payment period, you need to realize an important fact:
 

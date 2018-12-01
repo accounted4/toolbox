@@ -1,4 +1,4 @@
-==== Add JNDI Datasource to Tomcat
+=== Add JNDI Datasource to Tomcat
 
 Rather than configuring the DataSource properties within the application, it may be preferable to have the application request the DataSource from the container. Then administrators can modify configuration without poking into the application.
 

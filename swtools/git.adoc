@@ -1,6 +1,4 @@
-=== Git
-
-==== Normal Flow
+=== Normal Flow
 
 .Update local from remote, push local commits
 [source, bash]
@@ -23,7 +21,7 @@ git push origin master  # push current HEAD to remote master branch
 ----
 
 
-==== Configuration
+=== Configuration
 
 Hierarchy of configuration levels:
 
@@ -76,7 +74,7 @@ git remote set-url origin https://github.com/accounted4/toolbox
 git remote show origin
 ----
 
-==== Reverting
+=== Reverting
 
 .Reverting
 [source, bash]
@@ -93,7 +91,7 @@ git checkout HEAD -- filename.txt
 ----
 
 
-==== Stashing
+=== Stashing
 
 .Stashing
 [source, bash]
@@ -106,7 +104,7 @@ git stash pop
 
 ----
 
-==== Amending
+=== Amending
 
 RULE:  *Don't append public commits.*
 
@@ -120,7 +118,7 @@ git commit --amend -m "an updated commit message"
 git commit --amend --no-edit
 ----
 
-==== Branching
+=== Branching
 
 [source, bash]
 ----
@@ -132,7 +130,7 @@ git push -u origin feature_branch_name
 ----
 
 
-==== Example: Merge feature into master
+=== Example: Merge feature into master
 
 [source, bash]
 ----
@@ -171,7 +169,7 @@ git branch -d gh_removeLegacyUserManagement
 ----
 
 
-==== Notes
+=== Notes
 
 
 In GitHub, suffix a url with `#L18-L20` to highlight lines 18 - 20. Ex:
