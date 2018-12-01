@@ -25,6 +25,9 @@
 |===
 
 
+== Git
+include::./swtools/git.adoc[]
+
 
 == Java
 

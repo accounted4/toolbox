@@ -1,0 +1,198 @@
+=== Git
+
+==== Normal Flow
+
+.Update local from remote, push local commits
+[source, bash]
+----
+git checkout master     # switch to `master` branch and update working directory
+git fetch --prune       # fetch from remote and remove local branches if removed from upstream
+git rebase              # replay local commits ontop of updated local branch
+git push origin master  # push current HEAD to remote master branch
+----
+
+`git pull` is shorthand for `git fetch` followed by `git merge FETCH_HEAD`. Use `git pull --rebase` to do a rebase rather than a merge.
+
+.Update local from remote, merge local development branch
+[source, bash]
+----
+git checkout master     # Switches to `master` branch and updates the working directory
+git pull                # to update the state to the latest remote master state
+git merge develop       # to bring changes to local master from your develop branch
+git push origin master  # push current HEAD to remote master branch
+----
+
+
+==== Configuration
+
+Hierarchy of configuration levels:
+
+|===
+|Modifier |Location |Description
+
+|`--local` |`.git/config` |local to a repo 
+|`--global`|`~/.gitconfig`|global to a user
+|`--system`|`/etc/gitconfig`|system wide on OS
+|===
+
+Configuration keys are "dot"-delimited strings formed in a hierarchical fashion.
+
+.Configuration
+[source, bash]
+----
+git config -l           # list configuration values (includes global)
+git config --global -l  # list global configuration values (not local)
+
+git config user.email   # list the configured value for key
+git config user.email "1091512+gheinze@users.noreply.github.com"  # set email address
+
+# set email address at user level (i.e. across repos)
+git config --global user.email "1091512+gheinze@users.noreply.github.com"
+
+git config --global core.editor "vim"
+git config --global merge.tool kdiff3
+git config --global color.ui auto
+git config --global alias.ci commit
+git config --global alias.hist "log --oneline --graph --decorate --all"
+git config --global http.proxy
+git config --global https.proxy
+----
+
+*** 
+
+You may wish to alias a remote. Or perhaps the name/location of the remote repo changed and you need to update the local configuration to reflect that.
+
+.Remote
+[source, bash]
+----
+git remote -v      # list the remote repositories
+
+# add a remote endpoint for current repo
+git remote add origin https://github.com/gheinze/debenture.git
+
+# Change the url of the remote endpoint
+git remote set-url origin https://github.com/accounted4/toolbox
+
+git remote show origin
+----
+
+==== Reverting
+
+.Reverting
+[source, bash]
+----
+# Remove file from the index (i.e. the "about to be committed" area)
+# without changing anything els (i.e. leave modified file modified in working dir)
+git reset filename.txt
+
+# Un-modify a file in the workspace
+git checkout -- filename.txt
+
+# Update both the working copy of `filename.txt` and its state in the index with that from HEAD
+git checkout HEAD -- filename.txt
+----
+
+
+==== Stashing
+
+.Stashing
+[source, bash]
+----
+# Push local modifications to a new stash entry and roll back to HEAD (in working tree and index)
+git stash push -m "My interrupted work"
+
+git stash list
+git stash pop 
+
+----
+
+==== Amending
+
+RULE:  *Don't append public commits.*
+
+[source, bash]
+----
+# Change the message of the last commit:
+git commit --amend -m "an updated commit message"
+
+# Adding a missed file to the last commit: stage the missed file, then commit with:
+# the "–no-edit" will prevent prompting for a commit message and keep it the same as the original commit.
+git commit --amend --no-edit
+----
+
+==== Branching
+
+[source, bash]
+----
+# Create a new branch:
+git checkout -b feature_branch_name
+
+# Push your branch to the remote repository (`-u` for add upstream tracking reference):
+git push -u origin feature_branch_name
+----
+
+
+==== Example: Merge feature into master
+
+[source, bash]
+----
+git checkout gh_removeLegacyUserManagement
+git branch gh_removeLegacyUserManagement_bak  # create a backup reference
+git log # determine number of commits from start of branch
+
+# Put all the changes in the branch into one commit
+# Go back to first commit of branch (in this case 2, or specify commit explicitly)
+# Interactive editor will show "picks": change "pick" to "squash" for all subsequent commits
+git rebase -i HEAD~2
+
+# Put the single commit from the branch into master
+git checkout master
+git fetch
+git rebase
+git cherry-pick e3b8fee61c08eab6a8996ece167e06b901d55d52
+git diff HEAD~1
+git push
+
+# Delete local branch:
+
+git branch -d gh_removeLegacyUserManagement_bak
+error: The branch 'gh_removeLegacyUserManagement_bak' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D gh_removeLegacyUserManagement_bak'.
+
+$ git branch -D gh_removeLegacyUserManagement_bak
+Deleted branch gh_removeLegacyUserManagement_bak (was 22da15c).
+
+# Delete local and remote branch:
+git push origin --delete gh_removeLegacyUserManagement
+To https://git.sonova.com/tloeg/sonovaDigitalCommerce
+ - [deleted]         gh_removeLegacyUserManagement
+
+git branch -d gh_removeLegacyUserManagement
+----
+
+
+==== Notes
+
+
+In GitHub, suffix a url with `#L18-L20` to highlight lines 18 - 20. Ex:
+
+https://github.com/gheinze/asset-management/blob/master/a4-asset-manager/src/main/java/com/accounted4/assetmanager/Application.java#L9-L10
+
+
+===== `--`
+
+The special "option" `--` means "treat every argument after this point as a file name, no matter what it looks like." This is not Git-specific, it's a general Unix command line convention. Normally you use it to clarify that an argument is a file name rather than an option, e.g.
+
+[source, bash]
+----
+rm -f      # does nothing
+rm -- -f   # deletes a file named "-f"
+----
+
+https://stackoverflow.com/questions/6561142/difference-between-git-checkout-filename-and-git-checkout-filename
+
+===== `HEAD`
+
+`HEAD` is the commit at the top of the branch.
+
+`HEAD~1` is the commit 1 previous to `HEAD`
