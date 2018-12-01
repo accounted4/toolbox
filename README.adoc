@@ -2,8 +2,36 @@
 :toc: left
 :toclevels: 4 
 :imagesdir: ./images 
+:source-highlighter: coderay 
+
+== Linux
 
 
-include::Blog.adoc[]
-include::Toolbox.adoc[]
-include::Projects.adoc[]
+=== Keyboard Shortcuts
+
+.Keyboard Shortcuts
+|===
+|Key Combination |Description 
+
+|`CTRL`+`ALT`+`F1`
+|Open virtual terminal 1
+
+|`ALT`+`F7`
+|Return from virtual terminal to gui
+
+
+|`ALT`+`RIGHT CLICK`+`Drag`
+|Resize window in xfce
+|===
+
+
+
+== Java
+
+include::./java/AddJndiDataSourceToTomcat.adoc[]
+
+
+
+== Finance
+
+include::./finance/NegativeAmortization.adoc[]
