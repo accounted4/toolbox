@@ -1,7 +1,7 @@
 === Normal Flow
 
 .Update local from remote, push local commits
-[source, bash]
+[source, python]
 ----
 git checkout master     # switch to `master` branch and update working directory
 git fetch --prune       # fetch from remote and remove local branches if removed from upstream
@@ -12,7 +12,7 @@ git push origin master  # push current HEAD to remote master branch
 `git pull` is shorthand for `git fetch` followed by `git merge FETCH_HEAD`. Use `git pull --rebase` to do a rebase rather than a merge.
 
 .Update local from remote, merge local development branch
-[source, bash]
+[source, python]
 ----
 git checkout master     # Switches to `master` branch and updates the working directory
 git pull                # to update the state to the latest remote master state
@@ -36,7 +36,7 @@ Hierarchy of configuration levels:
 Configuration keys are "dot"-delimited strings formed in a hierarchical fashion.
 
 .Configuration
-[source, bash]
+[source, python]
 ----
 git config -l           # list configuration values (includes global)
 git config --global -l  # list global configuration values (not local)
@@ -61,7 +61,7 @@ git config --global https.proxy
 You may wish to alias a remote. Or perhaps the name/location of the remote repo changed and you need to update the local configuration to reflect that.
 
 .Remote
-[source, bash]
+[source, python]
 ----
 git remote -v      # list the remote repositories
 
@@ -77,7 +77,7 @@ git remote show origin
 === Reverting
 
 .Reverting
-[source, bash]
+[source, python]
 ----
 # Remove file from the index (i.e. the "about to be committed" area)
 # without changing anything els (i.e. leave modified file modified in working dir)
@@ -94,7 +94,7 @@ git checkout HEAD -- filename.txt
 === Stashing
 
 .Stashing
-[source, bash]
+[source, python]
 ----
 # Push local modifications to a new stash entry and roll back to HEAD (in working tree and index)
 git stash push -m "My interrupted work"
@@ -108,7 +108,7 @@ git stash pop
 
 RULE:  *Don't append public commits.*
 
-[source, bash]
+[source, python]
 ----
 # Change the message of the last commit:
 git commit --amend -m "an updated commit message"
@@ -120,7 +120,7 @@ git commit --amend --no-edit
 
 === Branching
 
-[source, bash]
+[source, python]
 ----
 # Create a new branch:
 git checkout -b feature_branch_name
@@ -132,7 +132,7 @@ git push -u origin feature_branch_name
 
 === Example: Merge feature into master
 
-[source, bash]
+[source, python]
 ----
 git checkout gh_removeLegacyUserManagement
 git branch gh_removeLegacyUserManagement_bak  # create a backup reference
@@ -181,7 +181,7 @@ https://github.com/gheinze/asset-management/blob/master/a4-asset-manager/src/mai
 
 The special "option" `--` means "treat every argument after this point as a file name, no matter what it looks like." This is not Git-specific, it's a general Unix command line convention. Normally you use it to clarify that an argument is a file name rather than an option, e.g.
 
-[source, bash]
+[source, python]
 ----
 rm -f      # does nothing
 rm -- -f   # deletes a file named "-f"
