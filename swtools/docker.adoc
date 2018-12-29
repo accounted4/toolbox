@@ -1,0 +1,53 @@
+=== Commands
+
+|===
+|Command|Description
+
+|`docker pull postgres:latest` |retrieve the image "postgres" tagged with "latest"
+|`docker container ls -a` |lists all containers (default ls just lists running containers)
+|`docker ps -a` |lists all running containers
+|`docker image ls` |list all images
+|`docker logs sql1` |checks the logs of the container "sql1"
+|`docker exec -it sql1 "bash"`` |connect to container "sql1" interactively, starting bash
+|`docker stop sql1` |shutdown the container "sql1"
+|`docker rm sql1` |
+|`docker run --name ubuntu_bash --rm -i -t ubuntu bash` |create a new container in interactive mode, based on image "ubuntu", launching bash, and removing container on exit (-t is for "tty")
+|===
+
+=== Notes on SQL Server Docker Container
+
+Details: https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-linux-2017
+
+Command line instructions are linux-based.  For Windows, run PowerShell in Administrator mode and skip the "sudo".
+
+* install docker v1.8+
+* retrieve docker image for MS SQL Server
+
+```
+sudo docker pull microsoft/mssql-server-linux:2017-latest
+```
+
+* create docker container based on image
+
+```
+sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=myPassword' -p 1433:1433 --name sql1 -d microsoft/mssql-server-linux:2017-latest
+```
+
+Note:
+
+* creates a docker container "sql1"
+* defines the SQL SA password
+* makes the internal container port 1433 available on port 1433 of the machine running docker port (-p <localPort>:<containerPort>), so if you already have SQL Server running locally on 1433, you may wish to change the localPort to 1434
+
+Vopy a DB dump into the container volume to make it available for the DB restore function in the Management Studio application
+
+docker cp jcProdDB_67_18June.bak sql1:/var/backups
+
+=== Notes on a Postgres Docker Container
+
+```
+docker pull postgres:latest
+docker run --name postgres_asset_manager -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+docker exec -it my-postgres bash
+root@92fb691130e8:/# psql -U postgres
+```
