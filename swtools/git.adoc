@@ -1,7 +1,7 @@
 === Normal Flow
 
 .Update local from remote, push local commits
-[source]
+[source, console]
 ----
 git checkout master     # switch to `master` branch and update working directory
 git fetch --prune       # fetch from remote and remove local branches if removed from upstream
@@ -74,6 +74,23 @@ git remote set-url origin https://github.com/accounted4/toolbox
 git remote show origin
 ----
 
+As `origin` is just an alias for a url, you could specify the url directly rather than using the alias.
+One can also add a `username:password` to the url.  Or just `username` to be prompted for the password.
+Or use a credential manager for have the values looked up.
+
+[source]
+----
+git fetch https://53gheinze@git.sonova.com/tloeg/sonovaDigitalCommerce master
+----
+
+=== Diffing
+
+.Diff back one commit
+[source]
+----
+git log -p -1 [<source> | <commit>]
+----
+
 === Reverting
 
 .Reverting
@@ -90,6 +107,53 @@ git checkout -- filename.txt
 git checkout HEAD -- filename.txt
 ----
 
+=== Rebasing
+
+In the following example `feature1` is branched off of `master`.  `master` continues on. `feature1` continues on.
+Now we want to replay the `feature1` commits on top of the new `master` HEAD.  Then we move the `master` HEAD to be
+at the same location as `feature1` HEAD.  Essentially we are moving all the commits from `feature1` onto the
+`master` branch.  If you want `feature1` commits squashed into a single commit to be added to the `master` branch,
+then try merging instead of rebasing.
+
+.feature branch
+----
+    master
+     |
+A -> D
+  \
+    B -> C
+         |
+      feature1
+----
+
+.rebase
+----
+    master   feature1
+     |          |
+A -> D -> B' -> C'
+----
+
+.merge
+----
+          master, feature1
+                |
+A -> D -> B' -> C'
+----
+
+.Rebasing
+[source]
+----
+git commit                # on master [A]
+git checkout -b feature1  # checkout feature1 (and create the branch if it doesn't exist)
+git commit                # on feature1 [B]
+git commit                # on feature1 [C]
+git checkout master
+git commit                # on master [D]
+git checkout feature1
+git rebase master         # replay feature1 commits ontop of current master to create revised feature1 [B', C']
+git checkout master
+git merge feature1        # since feature1 is linearly ahead of master now, move the head of master to head of feature1
+----
 
 === Stashing
 

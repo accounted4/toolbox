@@ -29,8 +29,24 @@
 == Git
 include::./swtools/git.adoc[]
 
+== Docker
+include::./swtools/docker.adoc[]
 
 == Java
+
+=== Find Java Class in Jar file
+
+==== Unix:
+
+----
+find ./ -name '*.jar' -exec grep -Hls MyClassName {} \;
+----
+
+==== Windows:
+
+----
+for /R %G in (*.jar) do @jar -tvf "%G" | find "ClassName" > NUL && echo %G
+----
 
 include::./java/AddJndiDataSourceToTomcat.adoc[]
 
