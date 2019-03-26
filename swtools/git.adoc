@@ -107,6 +107,39 @@ git checkout -- filename.txt
 git checkout HEAD -- filename.txt
 ----
 
+An example of pretending the last commit did not happen...
+
+[source]
+----
+# Moving HEAD before the last commit
+git reset --soft HEAD^   # moves HEAD to previous commit, doesn't touch index or work area
+git push origin +master  # forces this push to master, orphaning the previous HEAD
+----
+
+A StackOverflow example:
+
+[source]
+----
+git add -A; git commit -m "Start here."
+git add -A; git commit -m "One"
+git add -A; git commit -m "Two"
+git add -A' git commit -m "Three"
+git log --oneline --graph -4 --decorate
+
+* da883dc (HEAD, master) Three
+* 92d3eb7 Two
+* c6e82d3 One
+* e1e8042 Start here.
+
+git reset --soft HEAD~3
+git log --oneline --graph -1 --decorate
+
+* e1e8042 Start here.
+
+# Now all your changes are preserved and ready to be committed as one.
+----
+
+
 === Rebasing
 
 In the following example `feature1` is branched off of `master`.  `master` continues on. `feature1` continues on.
@@ -182,6 +215,9 @@ git commit --amend -m "an updated commit message"
 git commit --amend --no-edit
 ----
 
+Essentially, with ammend, you are avoiding moving HEAD with another commit.
+
+
 === Branching
 
 [source]
@@ -191,8 +227,21 @@ git checkout -b feature_branch_name
 
 # Push your branch to the remote repository (`-u` for add upstream tracking reference):
 git push -u origin feature_branch_name
+
+# Delete remote branch
+git push origin --delete remote_branch_name
 ----
 
+=== Tag
+
+[source]
+----
+# Create a named tag
+git tag gh_solrPoductSearchApiWithCompatibleProducts
+
+# Push the tag to remote
+git push --tags
+----
 
 === Example: Merge feature into master
 
