@@ -35,7 +35,7 @@ Hierarchy of configuration levels:
 
 Configuration keys are "dot"-delimited strings formed in a hierarchical fashion.
 
-.Configuration
+.Configuration (and aliases)
 [source]
 ----
 git config -l           # list configuration values (includes global)
@@ -51,9 +51,11 @@ git config --global core.editor "vim"
 git config --global merge.tool kdiff3
 git config --global color.ui auto
 git config --global alias.ci commit
-git config --global alias.hist "log --oneline --graph --decorate --all"
 git config --global http.proxy
 git config --global https.proxy
+git config --global alias.amend 'commit --amend --no-edit'
+#git config --global alias.hist "log --oneline --graph --decorate --all"
+git config --global alias.hist 'log --graph --abbrev-commit --pretty=format:'"'"'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"''
 ----
 
 ***
@@ -81,6 +83,15 @@ Or use a credential manager for have the values looked up.
 [source]
 ----
 git fetch https://53gheinze@git.sonova.com/tloeg/sonovaDigitalCommerce master
+----
+
+=== Log
+
+.show recent commits
+[source]
+----
+git log --oneline --graph --decorate --all --pretty=format:'%C(bold blue)<%an>%Creset'
+git log --graph --abbrev-commit --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 ----
 
 === Diffing
