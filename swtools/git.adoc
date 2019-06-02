@@ -94,6 +94,13 @@ git log --oneline --graph --decorate --all --pretty=format:'%C(bold blue)<%an>%C
 git log --graph --abbrev-commit --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 ----
 
+.show files in a commit
+[source]
+----
+git diff-tree --no-commit-id --name-only -r <sha>
+git show --pretty="" --name-only  <sha>
+----
+
 === Diffing
 
 .Diff back one commit
@@ -101,6 +108,17 @@ git log --graph --abbrev-commit --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%
 ----
 git log -p -1 [<source> | <commit>]
 ----
+
+.Diff staged file against HEAD
+[source]
+----
+git diff --cached
+----
+
+Note: `--staged` is a synonym for `--cached`
+
+Use tools such as `git difftool` or `git mergetool` to show a gui window
+with tool such as P4win set in global config. Or `gitk` to show commits.
 
 === Reverting
 
