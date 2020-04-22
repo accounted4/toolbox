@@ -502,6 +502,40 @@ ggplot(pfe2) +
 ![](images/PFE2_PurchaseOrderThreadsAllocated.png)
 
 
+## JDBC example
+
+```{r eval=FALSE, include=TRUE}
+# install.packages("RJDBC")
+
+library(RJDBC)
+library(ggplot2)
+
+SID = "ECP"
+
+drv <- JDBC(driverClass="oracle.jdbc.OracleDriver", classPath="/Oracle/app/client/glennh/product/12.2.0/client_1/jdbc/lib/ojdbc8.jar"," ")
+con <- dbConnect(drv, "jdbc:oracle:thin:@myserver:1521:mydb", "user","****")
+
+query <- paste("
+  select tablespace_name
+        ,mon_date
+        ,TRUNC(case when percentage_free = 0 then null else free_mb / percentage_free end / 10) AS size_gb
+    from tablespace_statistics
+    where sid = '", SID, "'
+      and TRUNC(case when percentage_free = 0 then null else free_mb / percentage_free end / 10) > 1
+    order by tablespace_name, mon_date
+", sep="")
+
+df <- dbGetQuery(con, query)
+dbDisconnect(con)
+
+df$MON_DATE <- as.Date(df$MON_DATE, format = "%Y%m%d")
+
+
+ggplot(data = df, aes(x=MON_DATE, y=SIZE_GB)) + geom_line(aes(colour=TABLESPACE_NAME))
+```
+
+![](images/Tablespace_Growth.jpeg)
+
 
 # Appendix
 
