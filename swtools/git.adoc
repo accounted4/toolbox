@@ -318,8 +318,14 @@ In GitHub, suffix a url with `#L18-L20` to highlight lines 18 - 20. Ex:
 
 https://github.com/gheinze/asset-management/blob/master/a4-asset-manager/src/main/java/com/accounted4/assetmanager/Application.java#L9-L10
 
+==== Trust self-signed certificate
 
-==== `--`
+[source]
+----
+GIT_SSL_NO_VERIFY=true git clone https://git.example.com/scm/repository.git
+----
+
+==== Meaning of: `--`
 
 The special "option" `--` means "treat every argument after this point as a file name, no matter what it looks like." This is not Git-specific, it's a general Unix command line convention. Normally you use it to clarify that an argument is a file name rather than an option, e.g.
 
