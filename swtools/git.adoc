@@ -85,6 +85,49 @@ Or use a credential manager for have the values looked up.
 git fetch https://53gheinze@git.sonova.com/tloeg/sonovaDigitalCommerce master
 ----
 
+=== Unix File Permissions on Win Client
+
+.show setting file permissions
+[source]
+----
+$ git add vsphere_vms.py
+
+$ git ls-files --stage
+100644 b2df1056772172fef0a0abf816bae173da8f0ab3 0       config.py
+100644 953db9fe06c35978511717f85ddbbfc5b7db79b0 0       vsphere_vms.py
+
+$ git update-index --chmod=+x vsphere_vms.py
+
+$ git ls-files --stage
+100644 b2df1056772172fef0a0abf816bae173da8f0ab3 0       config.py
+100755 953db9fe06c35978511717f85ddbbfc5b7db79b0 0       vsphere_vms.py
+----
+
+=== Local changes not managed by git
+
+Make changes to a file locally, but don't have git manage the change.
+
+[source]
+---
+[root@cokdba01a utils]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   waldo/bin/config.py
+
+[root@cokdba01a utils]# git update-index --skip-worktree waldo/bin/config.py
+[root@cokdba01a utils]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+
+git update-index --no-skip-worktree path/to/file
+---
+
+
 === Log
 
 .show recent commits
@@ -267,6 +310,9 @@ git push origin --delete remote_branch_name
 ----
 # Create a named tag
 git tag gh_solrPoductSearchApiWithCompatibleProducts
+
+# Create an annotated tag (full commit with details such as name and date rather than  just a pointer to a commit)
+git tag -a v1.1 -m "Version 1.1: Cost Center LIST extract generation + employee extract commercial flag added to field 20 aka Org Unit 5."
 
 # Push the tag to remote
 git push --tags
