@@ -211,6 +211,23 @@ git log --oneline --graph -1 --decorate
 # Now all your changes are preserved and ready to be committed as one.
 ----
 
+Another example of removing a commit by moving HEAD back, local and remote. Remember: this is not
+a good or safe operation if someone else already synched...
+
+[source]
+----
+# version 1:  Removing last commit local and remote
+git reset HEAD^        # remove commit locally
+git push origin +HEAD  # force-push the new HEAD commit
+
+
+# version 2:  Removing last commit local and remote
+# If nobody modified the remote the push will be accepted, otherwise it may be rejected.
+git checkout <branch>
+git reset --hard HEAD~1                      # move HEAD back one
+git push --force-with-lease origin <branch>  # push the changes to the remote
+----
+
 
 === Rebasing
 
