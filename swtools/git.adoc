@@ -356,6 +356,31 @@ To https://git.sonova.com/tloeg/sonovaDigitalCommerce
 git branch -d gh_removeLegacyUserManagement
 ----
 
+=== Local changes not managed by git
+
+Make changes to a file locally, but don't have git manage the change.
+
+```
+# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   waldo/bin/config.py
+
+# git update-index --skip-worktree waldo/bin/config.py
+# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+```
+
+To return to git control:
+
+```
+git update-index --no-skip-worktree path/to/file
+```
 
 === Notes
 
